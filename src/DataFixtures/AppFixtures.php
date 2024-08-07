@@ -63,17 +63,26 @@ class AppFixtures extends Fixture
         $manager->flush();
 
     //V2b
-        // $generator = Factory::create('fr_FR');
-        // $populator = new Populator($generator, $manager);
+        // $faker = Factory::create('fr_FR');
 
-        // $populator->addEntity(Article::class, 20, [
-        //     'updatedAt' => null,
-        //     'category'=> $tableCategory,
+        // $categoryNameIdx = 0;
+
+        // $populator = new Populator($faker, $manager);
+        // $populator->addEntity(Category::class, count(self::CATEGORIES_NAMES), [
+        //     'name' => function () use (&$categoryNameIdx) {
+        //         return self::CATEGORIES_NAMES[$categoryNameIdx++];
+        //     }
         // ]);
-        
-        // $insertedPKs = $populator->execute();       
-
-
+        // $populator->addEntity(Article::class, self::NB_ARTICLES, [
+        //     'title' => function () use ($faker) {
+        //         return $faker->realTextBetween(9, 15);
+        //     },
+        //     'content' => function () use ($faker) {
+        //         return $faker->realTextBetween(150, 350);
+        //     },
+        //     'updatedAt' => null
+        // ]);
+        // $populator->execute();
     }
 }
 
