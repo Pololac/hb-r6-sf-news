@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;        // Espace de nom "aliasé"
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -28,6 +28,10 @@ class Article
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
 
     public function getId(): ?int
     {
@@ -90,6 +94,18 @@ class Article
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
