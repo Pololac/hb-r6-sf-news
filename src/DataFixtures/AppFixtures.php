@@ -69,7 +69,7 @@ class AppFixtures extends Fixture
 
         // $populator = new Populator($faker, $manager);
         // $populator->addEntity(Category::class, count(self::CATEGORIES_NAMES), [
-        //     'name' => function () use (&$categoryNameIdx) {
+        //     'name' => function () use (&$categoryNameIdx) {      // "&" pr passage par référence
         //         return self::CATEGORIES_NAMES[$categoryNameIdx++];
         //     }
         // ]);
@@ -82,6 +82,7 @@ class AppFixtures extends Fixture
         //     },
         //     'updatedAt' => null
         // ]);
+
         // $populator->execute();
     }
 }

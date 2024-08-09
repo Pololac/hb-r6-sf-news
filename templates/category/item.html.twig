@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Hello CategoryController!
+{% endblock %}
+
+{% block body %}
+  <h1 class="text-5xl text-center font-bold mb-8">{{ category.name }}</h1>
+
+  {% for article in category.articles %}
+  
+    {% include 'article/card.html.twig' with {'article': article} %}
+
+  {% else %}
+    <p>Aucun article n'a été trouvé pour cette catégorie</p>
+  {% endfor %}
+
+{% endblock %}

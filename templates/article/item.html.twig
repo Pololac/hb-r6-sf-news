@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Hello ArticleController!
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-5xl text-bold mb-8">{{article.title}}</h1>
+    <p class="text-justify">{{article.content}}</p>
+{% endblock %}
