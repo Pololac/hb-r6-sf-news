@@ -15,11 +15,11 @@ class Article
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('articles_read')]   // Pr indiquer au Serializer ce qu'il doit utiliser
+    #[Groups(['articles_read', 'categories_read'])]    // Pr indiquer au Serializer ce qu'il doit utiliser
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('articles_read')] 
+    #[Groups(['articles_read', 'categories_read'])] 
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
