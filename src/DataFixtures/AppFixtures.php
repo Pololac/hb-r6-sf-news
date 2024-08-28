@@ -57,7 +57,7 @@ class AppFixtures extends Fixture
                 ->setVisible($faker->boolean(80))      // 80 % chances d'être "true"*
                 ->setCategory($faker->randomElement($categories));
 
-        $manager->persist($article);
+            $manager->persist($article);
         }
 
         $manager->flush();

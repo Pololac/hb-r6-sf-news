@@ -34,13 +34,13 @@ class NewsletterController extends AbstractController
         }    
 
         //Affiche formulaire si rien dans POST
-        return $this->render('index/newsletter.html.twig', [
+        return $this->render('newsletter/newsletter.html.twig', [
             'newsletterForm' => $form
         ]);
     }
 
     #[Route('/newsletter/thanks', name: "newsletter_confirm")]
     public function newsletterConfirm() : Response{
-        return $this->render('index/newsletter_confirm.html.twig');
+        return $this->render('newsletter/newsletter_confirm.html.twig');
     }
 }

@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;        // Espace de nom "aliasé"
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -12,12 +15,16 @@ class Article
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('articles_read')]   // Pr indiquer au Serializer ce qu'il doit utiliser
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('articles_read')] 
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups('articles_read')]
+    // #[Context([DateTimeNormalizer::FORMAT_KEY => 'd/m/Y'])]  // Pour formater la date directement dans propriété (alternative : au moment de la sérialisation)
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -31,6 +38,7 @@ class Article
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('articles_read')]          // Pour créer un lien vers entité "category" afin d'afficher le nom de la catégorie pour chaque article
     private ?Category $category = null;
 
     public function getId(): ?int

@@ -9,7 +9,7 @@ module.exports = {
     extend: {
 
       colors : {
-        mak: "#254528",
+        mak: "#0099ff",
       }
     },
   },
