@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\NewsletterEmail;
 use App\Form\NewsletterEmailType;
+use App\Newsletter\MailConfirmation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 class NewsletterController extends AbstractController
@@ -15,7 +18,8 @@ class NewsletterController extends AbstractController
     #[Route('/newsletter/subscribe', name: 'newsletter_subscribe', methods: ['GET', 'POST'])]
     public function newsletterSubscribe(
         Request $request,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,    // Communication avec BDD
+        MailConfirmation $mailconfirmation   // Pour utiliser notre service "MailConfirmation"
         ): Response
     {
         $newsletter = new NewsletterEmail();
@@ -29,6 +33,8 @@ class NewsletterController extends AbstractController
             // dd($newsletter);
             $em->persist($newsletter);
             $em->flush();
+
+            $mailconfirmation->send($newsletter);
 
             return $this->redirectToRoute('newsletter_confirm');
         }    
