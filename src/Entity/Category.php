@@ -33,6 +33,12 @@ class Category
         $this->articles = new ArrayCollection();
     }
 
+    public function __tostring()        // Pour faire une représentation textuelle d'un objet quand on fait un echo dessus
+    {
+        return $this->name;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
