@@ -9,7 +9,8 @@ use Symfony\Component\Mime\Email;
 class MailConfirmation
 {
     public function __construct(
-        private MailerInterface $mailer
+        private MailerInterface $mailer,
+        private string $adminEmail
     ){
 
     }
@@ -17,7 +18,7 @@ class MailConfirmation
     public function send(NewsletterEmail $newsletterEmail)
     {
         $email = (new Email())
-        ->from('admin@hb-news.com')
+        ->from($this->adminEmail)
         ->to($newsletterEmail->getEmail())
         ->subject('HB News - Inscription à la newsletter')
         ->text('Votre email a bien été enregistré à notre newsletter')  //Pour permettre affichage si HTML désactivé
