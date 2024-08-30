@@ -4,17 +4,22 @@ namespace App\DataFixtures;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-
 use Faker\Factory;
 use Faker\ORM\Doctrine\Populator;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     private const NB_ARTICLES = 50;
     private const CATEGORIES_NAMES = ['Sport', 'France', 'Politique', 'Économie', 'International'];
+
+    public function __construct(
+        private UserPasswordHasherInterface $hasher
+    ){}
 
     public function load(ObjectManager $manager): void
     {
@@ -84,6 +89,25 @@ class AppFixtures extends Fixture
         // ]);
 
         // $populator->execute();
+
+        // --USERS-----------------------------
+        $admin = new User();
+        $admin
+            ->setEmail("admin@test.com")
+            ->setRoles(["ROLE_ADMIN"])
+            ->setPassword($this -> hasher ->hashPassword($admin, "admin1234"));  //Possibilité de changer le logiciel de hashage en fonction des users
+
+        $manager->persist($admin);
+
+        $user = new User();
+        $user
+            ->setEmail("user@test.com")
+            ->setPassword($this -> hasher ->hashPassword($user, "user1234"));  //Possibilité de changer le logiciel de hashage en fonction des users
+
+        $manager->persist($user);
+
+        $manager->flush();
+
     }
 }
 
