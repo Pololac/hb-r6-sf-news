@@ -36,6 +36,19 @@ class ArticleController extends AbstractController
 
     }
     
+    #[Route('/articles/stats', name: 'articles_stats')]
+    public function articlesStats(): Response
+    {
+        if ($this->isGranted("ROLE_USER")){
+            // Si utilisateur
+        }
+
+        $this->denyAccessUnlessGranted("ROLE_ADMIN");   //Permet de limiter l'accès à cette page
+        return new Response('statistiques');
+    }
+
+
+
     //---CLASSE REQUEST------
     // #[Route('/article', name: 'article_item')]
     // public function item(Request $request, ArticleRepository $articleRepository): Response  // Type-hinting de "Request"
