@@ -6,16 +6,14 @@
         "enableSsl": "Disabled"
       },
       "previewLimit": 50,
-      "server": "127.0.0.1",
+      "server": "localhost",
       "port": 3306,
       "driver": "MySQL",
-      "database": "hb_r6_sf_news",
       "username": "root",
-      "name": "SF News",
+      "database": "hb_r6_sf_news",
+      "name": "Root",
       "askForPassword": true
     }
   ],
-  "cSpell.words": [
-    "mailconfirmation"
-  ]
+  "cSpell.words": ["mailconfirmation"]
 }

@@ -17,14 +17,14 @@ class AppFixtures extends Fixture
     private const NB_ARTICLES = 50;
     private const CATEGORIES_NAMES = ['Sport', 'France', 'Politique', 'Économie', 'International'];
 
-    public function __construct(
-        private UserPasswordHasherInterface $hasher
-    ){}
+    // public function __construct(
+    //     private UserPasswordHasherInterface $hasher
+    // ){}
+        //Plus nécessaire car effectuer directement dans les EventSubscribers
 
     public function load(ObjectManager $manager): void
     {
         
-
     //  V1         for ($i = 0; $i < self::NB_ARTICLES; $i++) {
     //             $article = new Article();
     //             $article
@@ -95,14 +95,17 @@ class AppFixtures extends Fixture
         $admin
             ->setEmail("admin@test.com")
             ->setRoles(["ROLE_ADMIN"])
-            ->setPassword($this -> hasher ->hashPassword($admin, "admin1234"));  //Possibilité de changer le logiciel de hashage en fonction des users
-
+            ->setPassword("admin1234");
+            // ->setPassword($this -> hasher ->hashPassword($admin, "admin1234"));  //RMQ : Possibilité de changer le logiciel de hashage en fonction des users
+                //Pas nécessaire car effectuer directement dans les EventSubscribers
         $manager->persist($admin);
 
         $user = new User();
         $user
             ->setEmail("user@test.com")
-            ->setPassword($this -> hasher ->hashPassword($user, "user1234"));  //Possibilité de changer le logiciel de hashage en fonction des users
+            ->setPassword("user1234");
+            // ->setPassword($this -> hasher ->hashPassword($user, "user1234"));  //Possibilité de changer le logiciel de hashage en fonction des users
+                //Pas nécessaire car effectuer directement dans les EventSubscribers
 
         $manager->persist($user);
 

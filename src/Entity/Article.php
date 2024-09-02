@@ -36,7 +36,7 @@ class Article
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\ManyToOne(inversedBy: 'articles', fetch : "EAGER")]   // Permet de faire un lien permanent entre entités Article et Category ("LAZY par défaut avec ManyToOne) pour limiter nbr requêtes pr afficher ts les articles : 1 seule ici contre "1 + 1par catégorie" avec la méthode classique
     #[ORM\JoinColumn(nullable: false)]
     #[Groups('articles_read')]          // Pour créer un lien vers entité "category" afin d'afficher le nom de la catégorie pour chaque article
     private ?Category $category = null;
