@@ -3,11 +3,13 @@
 namespace App\EventSubscriber;
 
 use App\Entity\User;
+// use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+// #[AsDoctrineListener(Events::prePersist)]   //Nouvelle synthaxe
 class HashUserPasswordSubscriber implements EventSubscriberInterface
 {
 

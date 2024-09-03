@@ -18,8 +18,16 @@ framework:
     php_errors:
         log: true
 
+
+    http_client:
+        scoped_clients:
+            spam.checker:   #API pour vérifier Emails subscription NL
+                base_uri: "%env(SPAM_CHECKER_BASE_URI)%"
+
+
 when@test:
     framework:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
+
