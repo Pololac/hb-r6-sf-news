@@ -35,36 +35,25 @@ class NewsletterController extends AbstractController
         $form->handleRequest($request);
 
         // Enregistrement de mon email
-        if ($form->isSubmitted() && $form->isValid()){
-            $response = $spamChecker->request(   //Envoi de l'email rentré à l'API SpamChecker
-                Request::METHOD_POST, // On utilise la méthode POST
-                "/api/check", // la fin de l'URL que nous souhaitons requêter (base uri définie ds env.local)
-                [ // La donnée sera automatiquement convertie au format JSON et intégrée au corps de la requête
-                  'json' => ['email' => $newsletter->getEmail()]
-                ]
-              );
-    
-            $data = $response->toArray();
-            // dd($data);
-            $isSpam = $data['result'] === 'spam';
+        if ($form->isSubmitted() && $form->isValid()){  //"isValid" fait référence aux Validator/Constraints de l'entité NewsletterEmail
+            $em->persist($newsletter);
+            $em->flush();
 
-            if (!$isSpam){
-                $em->persist($newsletter);
-                $em->flush();
+        //Diffusion de l'event NAME aux autres services
+            $dispatcher->dispatch(
+                new NewsletterRegisteredEvent($newsletter),
+                NewsletterRegisteredEvent::NAME
+                );
 
-            //Diffusion de l'event NAME aux autres services
-                $dispatcher->dispatch(
-                    new NewsletterRegisteredEvent($newsletter),
-                    NewsletterRegisteredEvent::NAME
-                    );
-    
-                return $this->redirectToRoute('newsletter_confirm');
-            }
+            return $this->redirectToRoute('newsletter_confirm');
+        }
 
-            $form->addError(new FormError("Une erreur est survenue lors de la vérification de l'email"));
+            // $form
+            //     ->get('email')
+            //     ->addError(new FormError("Une erreur est survenue lors de la vérification de l'email"));    //on applique addError sur le formulaire "fils" EmailType : relié au champs "addEmail"
+
             // $mailconfirmation->send($newsletter);
-
-        }    
+  
 
         //Affiche formulaire si rien dans POST
         return $this->render('newsletter/newsletter.html.twig', [

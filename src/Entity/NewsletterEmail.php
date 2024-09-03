@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\NewsletterEmailRepository;
+use App\Validator\IsNotSpam;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,6 +19,7 @@ class NewsletterEmail
 
     #[ORM\Column(length: 255)]
     #[Assert\Email(message:"L'adresse renseignée est invalide")]     //Méthode de validation de l'email tirée des "Validator\Constraints"
+    #[IsNotSpam(['message' => 'L\'email n\'est pas valide'])]    //Méthode de validation de l'email personnalisée
     private ?string $email = null;
 
     public function getId(): ?int
