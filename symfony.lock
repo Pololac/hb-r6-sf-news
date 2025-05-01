@@ -298,7 +298,16 @@
         ]
     },
     "symfonycasts/tailwind-bundle": {
-        "version": "v0.6.0"
+        "version": "0.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "0.8",
+            "ref": "4ea7c9488fdce8943520daf3fdc31e93e5b59c64"
+        },
+        "files": [
+            "config/packages/symfonycasts_tailwind.yaml"
+        ]
     },
     "tales-from-a-dev/flowbite-bundle": {
         "version": "0.7",
