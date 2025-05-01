@@ -19,7 +19,7 @@ class NewsletterEmail
 
     #[ORM\Column(length: 255)]
     #[Assert\Email(message:"L'adresse renseignée est invalide")]     //Méthode de validation de l'email tirée des "Validator\Constraints"
-    #[IsNotSpam(['message' => 'L\'email n\'est pas valide'])]    //Méthode de validation de l'email personnalisée
+    #[IsNotSpam(['message' => "L'adresse {{ value }} est considérée comme du spam. Contactez-nous si c'est une erreur."])] // Méthode de validation utilisant API Spam Checker
     private ?string $email = null;
 
     public function getId(): ?int

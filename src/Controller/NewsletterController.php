@@ -39,7 +39,7 @@ class NewsletterController extends AbstractController
             $em->persist($newsletter);
             $em->flush();
 
-        //Diffusion de l'event NAME aux autres services
+        //Diffusion de l'event "NAME" aux autres services
             $dispatcher->dispatch(
                 new NewsletterRegisteredEvent($newsletter),
                 NewsletterRegisteredEvent::NAME

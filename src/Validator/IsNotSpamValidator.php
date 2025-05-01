@@ -33,7 +33,7 @@ class IsNotSpamValidator extends ConstraintValidator
             return;
         }
 
-        // TODO: implement the validation here
+        // Ajoute une erreur au formulaire avec le message programmé dans le fichierIsNotSpam.php
         $this->context->buildViolation($constraint->message)
             ->setParameter('{{ value }}', $value)
             ->addViolation();
